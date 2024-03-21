@@ -1,9 +1,7 @@
 package main
 
 import (
-	"encoding/json"
-	"log"
-
+	_ "beegodemo/api"
 	"github.com/beego/beego/v2/server/web"
 	"github.com/beego/beego/v2/server/web/context"
 )
@@ -36,15 +34,11 @@ func GetDevice(ctx *context.Context) {
 		Name:    "server1",
 		Address: "localhost",
 	}
-	resp, err := json.Marshal(d)
-	if err != nil {
-		log.Fatal("error")
-	}
-	ctx.Output.Body(resp)
+	ctx.JSONResp(d)
 }
 
 func main() {
 	web.CtrlGet("/index", (*IndexController).Index)
 	web.Get("/device", GetDevice)
-	web.Run("127.0.0.1:8090")
+	web.Run(":8090")
 }
