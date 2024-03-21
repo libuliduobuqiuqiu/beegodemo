@@ -3,7 +3,6 @@ package main
 import (
 	_ "beegodemo/api"
 	"github.com/beego/beego/v2/server/web"
-	"github.com/beego/beego/v2/server/web/context"
 )
 
 type IndexController struct {
@@ -24,21 +23,8 @@ func (i *IndexController) Index() {
 	i.ServeJSON()
 }
 
-type Device struct {
-	Name    string `json:"name"`
-	Address string `json:"addess"`
-}
-
-func GetDevice(ctx *context.Context) {
-	d := Device{
-		Name:    "server1",
-		Address: "localhost",
-	}
-	ctx.JSONResp(d)
-}
-
 func main() {
+	web.BConfig.CopyRequestBody = true
 	web.CtrlGet("/index", (*IndexController).Index)
-	web.Get("/device", GetDevice)
 	web.Run(":8090")
 }

@@ -10,9 +10,9 @@ import (
 
 type Resp struct {
 	Code int           `json:"code"`
-	Info string        `json:"info,omiempty"`
-	Err  string        `json:"err,omiempty"`
-	Data []interface{} `json:"data,omiempty"`
+	Info string        `json:"info,omitempty"`
+	Err  string        `json:"err,omitempty"`
+	Data []interface{} `json:"data,omitempty"`
 }
 
 type DeviceController struct {
@@ -31,7 +31,6 @@ func (d *DeviceController) GetDevice() {
 }
 
 func (d *DeviceController) CreateDevice() {
-	fmt.Println(d.Ctx.Input.RequestBody)
 
 	tmpDevice := &types.Device{}
 	err := d.BindJSON(tmpDevice)
@@ -40,7 +39,7 @@ func (d *DeviceController) CreateDevice() {
 	}
 
 	fmt.Printf("%v\n", tmpDevice)
-	d.Ctx.JSONResp(Resp{Code: 200, Info: "success"})
+	d.Ctx.JSONResp(Resp{Code: 200, Info: "success", Data: []interface{}{tmpDevice}})
 }
 
 func (d *DeviceController) UpdateDevice() {
