@@ -28,6 +28,7 @@ func (d *DeviceController) GetDevice() {
 	device := types.Device{}
 	device.Name = name
 	d.Ctx.JSONResp(device)
+	fmt.Println(d.Ctx.Output.Status)
 }
 
 func (d *DeviceController) CreateDevice() {
